@@ -1,17 +1,23 @@
 import { Header } from './components';
 import { Login, Register, Posts } from './pages';
 import { Routes, Route } from 'react-router-dom';
+import { AuthContextProvider } from './contexts/AuthContext';
+import { PostContextProvider } from './contexts/PostContext';
 
 function App() {
   return (
-    <div className="app">
-      <Header />
-      <Routes>
-        <Route path='/' element={<Posts />} />
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-      </Routes>
-    </div>
+    <AuthContextProvider>
+      <PostContextProvider>
+        <div className="app">
+          <Header />
+          <Routes>
+            <Route path='/' element={<Posts />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register />} />
+          </Routes>
+        </div>
+      </PostContextProvider>
+    </AuthContextProvider>
   );
 }
 
