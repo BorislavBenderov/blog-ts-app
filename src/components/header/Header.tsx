@@ -3,13 +3,18 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CardActions from '@mui/material/CardActions';
+import { Link } from 'react-router-dom';
 
 export const Header = () => {
 
   return (
     <React.Fragment>
       <Toolbar sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Button size="small">Subscribe</Button>
+        <Button size="small">
+          <Link to='/'>
+            Home
+          </Link>
+        </Button>
         <Typography
           component="h2"
           variant="h5"
@@ -21,19 +26,27 @@ export const Header = () => {
         </Typography>
         <CardActions>
           <Button variant="outlined" size="small">
-            Login
+            <Link to='/login'>
+              Login
+            </Link>
           </Button>
           <Button variant="outlined" size="small">
-            Register
+            <Link to='/register'>
+              Register
+            </Link>
           </Button>
           <Button variant="outlined" size="small">
             Logout
           </Button>
           <Button variant="outlined" size="small">
-            My Posts
+            <Link to='/my-posts'>
+              My Posts
+            </Link>
           </Button>
           <Button variant="outlined" size="small">
-            Create Post
+            <Link to='/create'>
+              Create Post
+            </Link>
           </Button>
         </CardActions>
       </Toolbar>
