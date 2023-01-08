@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import CardActions from '@mui/material/CardActions';
 import { Link } from 'react-router-dom';
 import { AuthContext, IAuth } from '../../contexts/AuthContext';
+import { Logout } from '../logout/Logout';
 
 export const Header = () => {
   const { loggedUser } = useContext(AuthContext) as IAuth;
@@ -48,9 +49,7 @@ export const Header = () => {
                   Create Post
                 </Link>
               </Button>
-              <Button variant="outlined" size="small">
-                Logout
-              </Button></>}
+              <Logout /></>}
         </CardActions>
       </Toolbar>
     </>
