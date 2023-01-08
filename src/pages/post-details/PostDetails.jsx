@@ -1,7 +1,8 @@
 import { Button, Card, CardActions, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import Container from "@mui/material/Container";
 import { useContext } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { DeletePost } from "../../components";
 import { PostContext } from "../../contexts/PostContext";
 
 export const PostDetails = () => {
@@ -19,7 +20,7 @@ export const PostDetails = () => {
                         <CardMedia
                             component="img"
                             height='500px'
-                            image={currentPost.imageUrl}
+                            image={currentPost?.imageUrl}
                             alt="random"
                         />
                         <CardContent sx={{ flexGrow: 1 }}>
@@ -34,7 +35,10 @@ export const PostDetails = () => {
                             </Typography>
                         </CardContent>
                         <CardActions>
-                            <Button size="small">Read</Button>
+                            <Button size="small">
+                                <Link to={`/edit/${postId}`}>Edit</Link>
+                            </Button>
+                            <DeletePost postId={postId} />
                         </CardActions>
                     </Card>
                 </Grid>
