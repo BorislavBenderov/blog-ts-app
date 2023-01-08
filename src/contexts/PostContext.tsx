@@ -13,7 +13,9 @@ export type PostContextType = {
 export interface IPost {
     title?: string,
     description?: string,
-    id?: string
+    id?: string,
+    imageUrl?: string,
+    content?: string
 }
 
 export const PostContext = createContext<PostContextType | null>(null);
@@ -31,7 +33,7 @@ export const PostContextProvider = ({ children }: ChildrenContextProviderProps) 
             setIsLoading(true);
         });
     }, []);
-    console.log(posts);
+
     return (
         <PostContext.Provider value={{ posts }}>
             {children}
