@@ -11,17 +11,44 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Footer } from '../../components';
+import { browserLocalPersistence, createUserWithEmailAndPassword, setPersistence } from 'firebase/auth';
+import { auth } from '../../firebaseConfig';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 
 export const Register = () => {
+    const navigate = useNavigate();
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+
+        const formData = new FormData(event.currentTarget);
+        
+        const email = formData.get('email') as string;
+        const password = formData.get('password') as string;
+        const repeatPassword = formData.get('repeatPassword');
+
+        if (email === '' || password === '' || repeatPassword === '') {
+            alert('Please fill all the fields');
+            return;
+        }
+
+        if (password !== repeatPassword) {
+            alert('Your password and confirmation password do not match');
+            return;
+        }
+
+        setPersistence(auth, browserLocalPersistence)
+        .then(() => {
+            createUserWithEmailAndPassword(auth, email, password)
+            .then(() => {
+                navigate('/');
+            })
+            .catch((err) => {
+                alert(err.message);
+            })
+        })       
     };
 
     return (
@@ -56,7 +83,7 @@ export const Register = () => {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component="h1" variant="h5">
-                            Sign up
+                            Register
                         </Typography>
                         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
                             <TextField
@@ -94,7 +121,7 @@ export const Register = () => {
                                 variant="contained"
                                 sx={{ mt: 3, mb: 2 }}
                             >
-                                Sign In
+                                Register
                             </Button>
                             <Grid container justifyContent="center">
                                 <Grid item>
