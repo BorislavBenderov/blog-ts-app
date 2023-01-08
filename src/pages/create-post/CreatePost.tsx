@@ -39,7 +39,8 @@ export const CreatePost = () => {
             imageUrl,
             content,
             ownerId: loggedUser?.uid,
-            timestamp: serverTimestamp()
+            timestamp: serverTimestamp(),
+            likes: []
         };
 
         addDoc(collection(database, 'posts'), postData)
