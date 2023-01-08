@@ -6,22 +6,23 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { IPost } from '../../contexts/PostContext';
+import { Link } from 'react-router-dom';
 
 interface Props {
     post: IPost,
     key: string | undefined
 }
 
-export const PostCard = ({post} : Props) => {
+export const PostCard = ({ post }: Props) => {
     return (
-            <Grid item xs={12} sm={6} md={4}>
-                <Card
-                    sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                >
+        <Grid item xs={12} sm={6} md={4}>
+            <Card
+                sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+            >
                 <CardMedia
                     component="img"
                     height='500px'
-                    image="https://source.unsplash.com/random"
+                    image={post.imageUrl}
                     alt="random"
                 />
                 <CardContent sx={{ flexGrow: 1 }}>
@@ -33,7 +34,9 @@ export const PostCard = ({post} : Props) => {
                     </Typography>
                 </CardContent>
                 <CardActions>
-                    <Button size="small">Read</Button>
+                    <Button size="small">
+                        <Link to={`/posts/${post.id}`}>Read</Link>
+                    </Button>
                 </CardActions>
             </Card>
         </Grid>
