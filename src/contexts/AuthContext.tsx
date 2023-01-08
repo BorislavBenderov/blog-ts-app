@@ -10,12 +10,18 @@ type AuthContextProviderProps = {
     children: React.ReactNode
 }
 
-interface authUser {}
+export interface IAuth {
+    loggedUser : authUser | null
+}
 
-export const AuthContext = createContext<authUser | null>(null);
+interface authUser {
+    uid: string
+}
+
+export const AuthContext = createContext<IAuth | null>(null);
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
-    const [loggedUser, setLoggedUser] = useState<authUser | null>([]);
+    const [loggedUser, setLoggedUser] = useState<authUser | null>(null);
 
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, (user) => {
