@@ -2,7 +2,8 @@ import { InputBase } from '@mui/material';
 import { styled, alpha } from '@mui/material/styles';
 import SearchIcon from '@mui/icons-material/Search';
 
-export const SearchBar = () => {
+export const SearchBar = ({ search, setSearch }: any) => {
+
     const Search = styled('div')(({ theme }) => ({
         position: 'relative',
         borderRadius: theme.shape.borderRadius,
@@ -44,7 +45,7 @@ export const SearchBar = () => {
             },
         },
     }));
-    
+
     return (
         <Search>
             <SearchIconWrapper>
@@ -53,6 +54,10 @@ export const SearchBar = () => {
             <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                fullWidth
+                autoFocus
             />
         </Search>
     );
