@@ -16,7 +16,8 @@ export interface IPost {
     id?: string,
     imageUrl?: string,
     content?: string,
-    ownerId?: string
+    ownerId?: string,
+    likes?: any
 }
 
 export const PostContext = createContext<PostContextType | null>(null);
