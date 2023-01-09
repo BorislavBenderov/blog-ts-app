@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,28 +19,29 @@ const theme = createTheme();
 
 export const Login = () => {
   const navigate = useNavigate();
-  
+  const [err, setErr] = useState('');
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
 
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
-    
-    if (email === '' || password === '') {
-      alert('Please fill all the fields!');
-      return;
-  }
 
-  setPersistence(auth, browserLocalPersistence)
+    if (email === '' || password === '') {
+      setErr('Please fill all the fields!');
+      return;
+    }
+
+    setPersistence(auth, browserLocalPersistence)
       .then(() => {
-          signInWithEmailAndPassword(auth, email, password)
-              .then(() => {
-                  navigate('/');
-              })
-              .catch((err) => {
-                  alert(err.message);
-              })
+        signInWithEmailAndPassword(auth, email, password)
+          .then(() => {
+            navigate('/');
+          })
+          .catch((err) => {
+            setErr(err.message);
+          })
       })
   };
 
@@ -108,6 +109,9 @@ export const Login = () => {
               >
                 Login
               </Button>
+              <Typography sx={{color: 'red', textAlign: 'center'}}>
+                {err}
+              </Typography>
               <Grid container justifyContent="center">
                 <Grid item>
                   <Link href="#" variant="body2">

@@ -9,7 +9,7 @@ import { Footer } from '../../components';
 import { useNavigate } from 'react-router-dom';
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore';
 import { database } from '../../firebaseConfig';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AuthContext, IAuth } from '../../contexts/AuthContext';
 
 const theme = createTheme();
@@ -17,6 +17,7 @@ const theme = createTheme();
 export const CreatePost = () => {
     const navigate = useNavigate();
     const { loggedUser } = useContext(AuthContext) as IAuth;
+    const [err, setErr] = useState('');
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -29,7 +30,12 @@ export const CreatePost = () => {
         const content = formData.get('content');
 
         if (title === '' || description === '' || imageUrl === '' || content === '') {
-            alert('Please fill all the fields!');
+            setErr('Please fill all the fields!');
+            return;
+        }
+
+        if (!imageUrl?.toString().startsWith('http')) {
+            setErr('Please add a valid image url!');
             return;
         }
 
@@ -48,7 +54,7 @@ export const CreatePost = () => {
                 navigate('/');
             })
             .catch((err) => {
-                alert(err.message);
+                setErr(err.message);
             })
     }
 
@@ -109,6 +115,9 @@ export const CreatePost = () => {
                         >
                             Create
                         </Button>
+                        <Typography sx={{ color: 'red', textAlign: 'center' }}>
+                            {err}
+                        </Typography>
                     </Box>
                 </Box>
                 <Footer />

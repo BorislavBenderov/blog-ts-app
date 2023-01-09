@@ -15,11 +15,15 @@ const theme = createTheme();
 export const CreateComment = ({ currentPost }: any) => {
     const { loggedUser } = useContext(AuthContext) as IAuth;
     const [input, setInput] = useState<string>('');
+    const [err, setErr] = useState('');
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if (input === '') {
-            alert('Please enter a valid comment');
+            setErr('Please enter a valid comment');
+            setTimeout(() => {
+                setErr('');
+            }, 3000);
             return;
         }
 
@@ -35,7 +39,7 @@ export const CreateComment = ({ currentPost }: any) => {
                 setInput('');
             })
             .catch((err) => {
-                alert(err.message);
+                setErr(err.message);
             })
     }
     return (
@@ -73,6 +77,9 @@ export const CreateComment = ({ currentPost }: any) => {
                         >
                             Add Comment
                         </Button>
+                        <Typography sx={{ color: 'red', textAlign: 'center' }}>
+                            {err}
+                        </Typography>
                     </Box>
                 </Box>
             </Container>

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -19,36 +19,37 @@ const theme = createTheme();
 
 export const Register = () => {
     const navigate = useNavigate();
+    const [err, setErr] = useState('');
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         const formData = new FormData(event.currentTarget);
-        
+
         const email = formData.get('email') as string;
         const password = formData.get('password') as string;
         const repeatPassword = formData.get('repeatPassword');
 
         if (email === '' || password === '' || repeatPassword === '') {
-            alert('Please fill all the fields');
+            setErr('Please fill all the fields');
             return;
         }
 
         if (password !== repeatPassword) {
-            alert('Your password and confirmation password do not match');
+            setErr('Your password and confirmation password do not match');
             return;
         }
 
         setPersistence(auth, browserLocalPersistence)
-        .then(() => {
-            createUserWithEmailAndPassword(auth, email, password)
             .then(() => {
-                navigate('/');
+                createUserWithEmailAndPassword(auth, email, password)
+                    .then(() => {
+                        navigate('/');
+                    })
+                    .catch((err) => {
+                        setErr(err.message);
+                    })
             })
-            .catch((err) => {
-                alert(err.message);
-            })
-        })       
     };
 
     return (
@@ -123,6 +124,9 @@ export const Register = () => {
                             >
                                 Register
                             </Button>
+                            <Typography sx={{ color: 'red', textAlign: 'center' }}>
+                                {err}
+                            </Typography>
                             <Grid container justifyContent="center">
                                 <Grid item>
                                     <Link href="#" variant="body2">
