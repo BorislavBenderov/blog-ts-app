@@ -40,10 +40,6 @@ export const UserPosts = () => {
                         >
                             My Posts
                         </Typography>
-                        <Grid container justifyContent='center'>
-                            <SearchBar />
-                        </Grid>
-
                     </Container>
                 </Box>
                 <Container sx={{ py: 8 }} maxWidth="md">
