@@ -18,6 +18,7 @@ export const EditPost = () => {
     const { posts } = useContext(PostContext) as PostContextType;
     const { postId } = useParams();
     const navigate = useNavigate();
+    const [err, setErr] = useState('');
     const currentPost = posts.find((post) => post.id === postId);
 
     const [values, setValues] = useState({
@@ -45,7 +46,12 @@ export const EditPost = () => {
         const content = formData.get('content');
 
         if (title === '' || description === '' || imageUrl === '' || content === '') {
-            alert('Please fill all the fields!');
+            setErr('Please fill all the fields!');
+            return;
+        }
+
+        if (!imageUrl?.toString().startsWith('http')) {
+            setErr('Please add a valid image url!');
             return;
         }
 
@@ -59,7 +65,7 @@ export const EditPost = () => {
                 navigate(`/posts/${postId}`);
             })
             .catch((err) => {
-                alert(err.message);
+                setErr(err.message);
             })
     }
 
@@ -128,6 +134,9 @@ export const EditPost = () => {
                         >
                             Edit
                         </Button>
+                        <Typography sx={{ color: 'red', textAlign: 'center' }}>
+                            {err}
+                        </Typography>
                     </Box>
                 </Box>
                 <Footer />
