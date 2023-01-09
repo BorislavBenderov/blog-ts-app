@@ -89,6 +89,7 @@ export const EditPost = () => {
                             margin="normal"
                             required
                             fullWidth
+                            multiline
                             id="title"
                             label="Title"
                             name="title"
@@ -99,6 +100,7 @@ export const EditPost = () => {
                             margin="normal"
                             required
                             fullWidth
+                            multiline
                             name="description"
                             label="Description"
                             id="description"
@@ -109,6 +111,7 @@ export const EditPost = () => {
                             margin="normal"
                             required
                             fullWidth
+                            multiline
                             name="imageUrl"
                             label="Image Url"
                             id="imageUrl"
