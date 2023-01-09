@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -14,6 +14,10 @@ const theme = createTheme();
 
 export const Posts = () => {
   const { posts } = useContext(PostContext) as PostContextType;
+  const [search, setSearch] = useState('');
+
+  const searchedPosts = posts.filter(post => post?.title?.toLowerCase().includes(search.toLowerCase())
+    || post?.description?.toLowerCase().includes(search.toLowerCase()));
 
   return (
     <ThemeProvider theme={theme}>
@@ -37,15 +41,14 @@ export const Posts = () => {
               Blog Posts
             </Typography>
             <Grid container justifyContent='center'>
-              <SearchBar />
+              <SearchBar search={search} setSearch={setSearch} />
             </Grid>
-
           </Container>
         </Box>
         <Container sx={{ py: 8 }} maxWidth="md">
           <Grid container spacing={4} direction="column">
             {posts.length > 0
-              ? posts.map((post: IPost) => <PostCard key={post.id} post={post} />)
+              ? searchedPosts.map((post: IPost) => <PostCard key={post.id} post={post} />)
               : ''
             }
           </Grid>
