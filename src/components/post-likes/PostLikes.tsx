@@ -31,10 +31,11 @@ export const PostLikes = ({ currentPost }: any) => {
     }
 
     return (
-        <Typography onClick={onLike} sx={{ cursor: 'pointer' }}>
+        <Typography onClick={onLike} sx={{ cursor: 'pointer', display: 'inline-block' }}>
             {currentPost?.likes.includes(loggedUser?.uid)
                 ? <FavoriteIcon sx={{ color: 'red' }} />
                 : <FavoriteBorderIcon />}
+                {currentPost?.likes?.length}
         </Typography>
     );
 }
