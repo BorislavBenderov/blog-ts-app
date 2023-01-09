@@ -11,17 +11,18 @@ type AuthContextProviderProps = {
 }
 
 export interface IAuth {
-    loggedUser : authUser | null
+    loggedUser: authUser | null
 }
 
 interface authUser {
-    uid: string
+    uid: string,
+    email: string
 }
 
 export const AuthContext = createContext<IAuth | null>(null);
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
-    const [loggedUser, setLoggedUser] = useState<authUser | null>(null);
+    const [loggedUser, setLoggedUser] = useState<any | null>(null);
 
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, (user) => {
