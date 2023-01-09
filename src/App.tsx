@@ -1,9 +1,8 @@
-import { Header } from './components';
+import { Header, ProtectedRoutes } from './components';
 import { Login, Register, Posts, PostDetails, EditPost, CreatePost, UserPosts, NotFound } from './pages';
 import { Routes, Route } from 'react-router-dom';
 import { AuthContextProvider } from './contexts/AuthContext';
 import { PostContextProvider } from './contexts/PostContext';
-import { ProtectedRoutes } from './components/protected-routes/ProtectedRoutes';
 
 function App() {
   return (
